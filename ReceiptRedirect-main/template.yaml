@@ -1,0 +1,30 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Redirect to https://cabinet.tax.gov.ua/cashregs/check
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 20
+
+Resources:
+  RedirectFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      FunctionName: RedirectFunction
+      CodeUri: RedirectFunction
+      Handler: ua.com.receipt.App::handleRequest
+      Runtime: java11
+      MemorySize: 128
+      Events:
+        EntryPoint:
+          Type: HttpApi # More info about API Event Source: https://github.com/aws/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlesshttpapi
+          Properties:
+            Path: /{proxy+}
+            Method: ANY
+
+Outputs:
+  EntryPointHttpApi:
+    Description: "Test url for redirect to https://cabinet.tax.gov.ua/cashregs/check"
+    Value: !Sub "https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com/4000066879/35485502"

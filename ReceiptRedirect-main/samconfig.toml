@@ -1,0 +1,12 @@
+version = 0.1
+["receipt.com.ua"]
+["receipt.com.ua".deploy]
+["receipt.com.ua".deploy.parameters]
+stack_name = "RedirectFunction"
+s3_bucket = "receipt.com.ua"
+s3_prefix = "RedirectFunction"
+region = "eu-central-1"
+profile = "receipt.com.ua"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+image_repositories = []
